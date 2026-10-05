@@ -213,6 +213,16 @@ a:hover { text-decoration-thickness: 2px; }
 .step { display: grid; gap: 8px; align-content: start; padding-top: 14px; border-top: 2px solid var(--ink); }
 .step h3 { font-weight: 700; font-size: 1.65rem; }
 
+/* Photo gallery */
+.gallery { padding: 0; list-style: none; display: grid; gap: clamp(10px, 2vw, 18px); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 780px) { .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gallery figure { display: grid; gap: 7px; }
+.photo-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; overflow: hidden; }
+.photo-btn img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform .35s ease; }
+.photo-btn:hover img { transform: scale(1.03); }
+.gallery figcaption { font: 400 .78rem/1.35 var(--font-mono); color: var(--ink-soft); }
+.gallery-credit { margin-top: 16px; }
+
 /* Room with four corners */
 .room {
   position: relative;
@@ -429,7 +439,7 @@ a:hover { text-decoration-thickness: 2px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .circled path, .stream .waves path { animation: none; }
-  .poster-btn img, .to-top { transition: none; }
+  .poster-btn img, .photo-btn img, .to-top { transition: none; }
 }
 </style>
 </head>
@@ -452,6 +462,7 @@ a:hover { text-decoration-thickness: 2px; }
         <p class="lead">В Школе ЭШЭР уже 20 лет решают парадоксальные задачи. На встрече про внимание задача была шуточная: пандемия СДВГ. Три группы выясняли, через что она передаётся. Задача парадоксальная, и решения получились такими же.</p>
         <ul class="toc" aria-label="Разделы">
           <li><a href="#task">Условие</a></li>
+          <li><a href="#photos">Фото</a></li>
           <li><a href="#warmup">Разминка</a></li>
           <li><a href="#reels"><span class="dot" style="--c: var(--m-red)"></span>Рилсы</a></li>
           <li><a href="#dyscommunication"><span class="dot" style="--c: var(--m-blue)"></span>Дискоммуникация</a></li>
@@ -536,6 +547,151 @@ a:hover { text-decoration-thickness: 2px; }
           <p>Доклады групп, вопросы из зала и споры.</p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <section class="section" id="photos" aria-labelledby="photos-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Фотографии</p>
+        <h2 id="photos-title">Как это было</h2>
+        <p>Вечер в Доме на Среднем: сбор, разминка, работа в группах, доклады и вопросы из зала. Нажмите на фото, чтобы открыть его крупно.</p>
+      </div>
+      <ul class="gallery">
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/14.jpg" data-caption="Перед началом">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/14-sm.webp 900w, assets/photos/14.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/14-sm.jpg" srcset="assets/photos/14-sm.jpg 900w, assets/photos/14.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участники собираются у окна, на подоконнике чай и угощение." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Перед началом</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/17.jpg" data-caption="Разминка">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/17-sm.webp 900w, assets/photos/17.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/17-sm.jpg" srcset="assets/photos/17-sm.jpg 900w, assets/photos/17.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участники разговаривают, стоя небольшими группами." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Разминка</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/28.jpg" data-caption="Работа в группах">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/28-sm.webp 900w, assets/photos/28.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/28-sm.jpg" srcset="assets/photos/28-sm.jpg 900w, assets/photos/28.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Группы сидят на полу, один участник разворачивает рулон бумаги для плаката." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Работа в группах</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/29.jpg" data-caption="Группа вырабатывает позицию">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/29-sm.webp 900w, assets/photos/29.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/29-sm.jpg" srcset="assets/photos/29-sm.jpg 900w, assets/photos/29.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Группа сидит в кругу на полу и обсуждает задачу." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Группа вырабатывает позицию</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/31.jpg" data-caption="Обсуждение">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/31-sm.webp 900w, assets/photos/31.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/31-sm.jpg" srcset="assets/photos/31-sm.jpg 900w, assets/photos/31.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участница объясняет свою мысль, жестикулируя." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Обсуждение</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/36.jpg" data-caption="Доклад группы «Рилсогенное СДВГ»">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/36-sm.webp 900w, assets/photos/36.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/36-sm.jpg" srcset="assets/photos/36-sm.jpg 900w, assets/photos/36.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Докладчик с чашкой в руке рядом с плакатом «Рилсогенное СДВГ»." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Доклад группы «Рилсогенное СДВГ»</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/51.jpg" data-caption="Реакции из зала">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/51-sm.webp 900w, assets/photos/51.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/51-sm.jpg" srcset="assets/photos/51-sm.jpg 900w, assets/photos/51.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Две участницы в зале: одна смеётся, другая закрыла лицо руками." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Реакции из зала</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/55.jpg" data-caption="Доклад группы «Зловредное поле»">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/55-sm.webp 900w, assets/photos/55.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/55-sm.jpg" srcset="assets/photos/55-sm.jpg 900w, assets/photos/55.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Докладчица показывает на плакат со схемой внимания." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Доклад группы «Зловредное поле»</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/67.jpg" data-caption="Доклад группы «Дискоммуникация»">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/67-sm.webp 900w, assets/photos/67.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/67-sm.jpg" srcset="assets/photos/67-sm.jpg 900w, assets/photos/67.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Докладчица у плаката «Коммуникация»." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Доклад группы «Дискоммуникация»</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/70.jpg" data-caption="Из зала">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/70-sm.webp 900w, assets/photos/70.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/70-sm.jpg" srcset="assets/photos/70-sm.jpg 900w, assets/photos/70.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участник задумчиво чешет затылок." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Из зала</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/72.jpg" data-caption="Конференция">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/72-sm.webp 900w, assets/photos/72.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/72-sm.jpg" srcset="assets/photos/72-sm.jpg 900w, assets/photos/72.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Зал во время конференции: слушатели сидят на полу, у печки докладчики, на полу свёрнутые плакаты." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Конференция</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/73.jpg" data-caption="Руки вверх">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/73-sm.webp 900w, assets/photos/73.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/73-sm.jpg" srcset="assets/photos/73-sm.jpg 900w, assets/photos/73.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Слушатели поднимают руки." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Руки вверх</figcaption>
+          </figure>
+        </li>
+      </ul>
+      <p class="note gallery-credit">Фото из <a href="https://vk.ru/album-184040888_312132245" target="_blank" rel="noopener">альбома Школы ЭШЭР во ВКонтакте</a>.</p>
     </div>
   </section>
 
