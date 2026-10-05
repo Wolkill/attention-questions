@@ -130,6 +130,10 @@ a:hover { text-decoration-thickness: 2px; }
   animation: draw 1.1s .35s cubic-bezier(.6, .1, .3, 1) both;
 }
 @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.epigraph { display: grid; gap: 6px; max-width: 30em; margin-top: 26px; }
+.epigraph blockquote { font: italic 400 clamp(1.05rem, .98rem + .3vw, 1.2rem)/1.45 var(--font-text); }
+.announce { display: grid; gap: 8px; max-width: 42em; margin-top: clamp(30px, 4vw, 44px); padding-left: 18px; border-left: 3px solid var(--ink); }
+.announce blockquote { font: italic 400 1.1rem/1.5 var(--font-text); }
 .lead {
   margin-top: 30px;
   max-width: 34em;
@@ -212,6 +216,16 @@ a:hover { text-decoration-thickness: 2px; }
 @media (min-width: 780px) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; } }
 .step { display: grid; gap: 8px; align-content: start; padding-top: 14px; border-top: 2px solid var(--ink); }
 .step h3 { font-weight: 700; font-size: 1.65rem; }
+
+/* Photo gallery */
+.gallery { padding: 0; list-style: none; display: grid; gap: clamp(10px, 2vw, 18px); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 780px) { .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gallery figure { display: grid; gap: 7px; }
+.photo-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; overflow: hidden; }
+.photo-btn img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform .35s ease; }
+.photo-btn:hover img { transform: scale(1.03); }
+.gallery figcaption { font: 400 .78rem/1.35 var(--font-mono); color: var(--ink-soft); }
+.gallery-credit { margin-top: 16px; }
 
 /* Room with four corners */
 .room {
@@ -400,6 +414,27 @@ a:hover { text-decoration-thickness: 2px; }
   cursor: pointer;
 }
 
+/* Back to top */
+.to-top {
+  position: fixed; z-index: 20;
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 15px 12px 13px;
+  border: 1px solid var(--ink);
+  background: var(--ink); color: var(--paper);
+  font: 500 .78rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 12px 28px -14px var(--shadow);
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+}
+.to-top.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .2s ease, transform .2s ease; }
+.to-top:hover { background: var(--m-red); border-color: var(--m-red); color: var(--on-accent); }
+.to-top svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 559px) { .to-top { padding: 14px; } .to-top span { display: none; } }
+#title:focus { outline: none; }
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .poster-btn img { filter: brightness(.9); }
 }
@@ -408,7 +443,7 @@ a:hover { text-decoration-thickness: 2px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .circled path, .stream .waves path { animation: none; }
-  .poster-btn img { transition: none; }
+  .poster-btn img, .photo-btn img, .to-top { transition: none; }
 }
 </style>
 </head>
@@ -428,9 +463,14 @@ a:hover { text-decoration-thickness: 2px; }
       <div>
         <p class="label">Отчёт о встрече · <span class="nowrap">3 октября 2026</span> · <span class="nowrap">17:00–21:00</span> · <span class="nowrap">Дом на Среднем</span></p>
         <h1 id="title">Задача на <span class="circled">внимание<svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M24 70 C10 40 70 10 160 9 C250 8 296 28 292 52 C288 80 210 95 140 93 C70 91 14 80 16 56 C18 38 50 24 98 18"/></svg></span></h1>
-        <p class="lead">В Школе ЭШЭР уже 20 лет решают парадоксальные задачи. На встрече про внимание задача была шуточная: пандемия СДВГ. Три группы выясняли, через что она передаётся. Задача парадоксальная, и решения получились такими же.</p>
+        <figure class="epigraph">
+          <blockquote><p>«Тема сама по себе парадоксальна: Как обратить внимание на внимание?»</p></blockquote>
+          <figcaption class="label">Из анонса <a href="https://metaversum.ru/esher_vnimanie" target="_blank" rel="noopener">осенней школы ЭШЭР «Внимание»</a></figcaption>
+        </figure>
+        <p class="lead">В Школе ЭШЭР с 2007 года решают парадоксальные задачи. Эта встреча была разминкой перед осенней школой «Внимание», а задача на ней была шуточная: пандемия СДВГ. Три группы выясняли, через что она передаётся. Задача парадоксальная, и решения получились такими же.</p>
         <ul class="toc" aria-label="Разделы">
           <li><a href="#task">Условие</a></li>
+          <li><a href="#photos">Фото</a></li>
           <li><a href="#warmup">Разминка</a></li>
           <li><a href="#reels"><span class="dot" style="--c: var(--m-red)"></span>Рилсы</a></li>
           <li><a href="#dyscommunication"><span class="dot" style="--c: var(--m-blue)"></span>Дискоммуникация</a></li>
@@ -497,6 +537,7 @@ a:hover { text-decoration-thickness: 2px; }
       <div class="section-head">
         <p class="label">17:00–21:00</p>
         <h2 id="flow-title">Как шла встреча</h2>
+        <p>Так устроен метод ЭШЭР: решающие группы работают над задачей, а потом встречаются на конференции.</p>
       </div>
       <ol class="steps">
         <li class="step">
@@ -515,6 +556,151 @@ a:hover { text-decoration-thickness: 2px; }
           <p>Доклады групп, вопросы из зала и споры.</p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <section class="section" id="photos" aria-labelledby="photos-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Фотографии</p>
+        <h2 id="photos-title">Как это было</h2>
+        <p>Вечер в Доме на Среднем: сбор, разминка, работа в группах, доклады и вопросы из зала. Нажмите на фото, чтобы открыть его крупно.</p>
+      </div>
+      <ul class="gallery">
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/14.jpg" data-caption="Перед началом">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/14-sm.webp 900w, assets/photos/14.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/14-sm.jpg" srcset="assets/photos/14-sm.jpg 900w, assets/photos/14.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участники собираются у окна, на подоконнике чай и угощение." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Перед началом</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/17.jpg" data-caption="Разминка">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/17-sm.webp 900w, assets/photos/17.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/17-sm.jpg" srcset="assets/photos/17-sm.jpg 900w, assets/photos/17.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участники разговаривают, стоя небольшими группами." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Разминка</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/28.jpg" data-caption="Работа в группах">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/28-sm.webp 900w, assets/photos/28.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/28-sm.jpg" srcset="assets/photos/28-sm.jpg 900w, assets/photos/28.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Группы сидят на полу, один участник разворачивает рулон бумаги для плаката." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Работа в группах</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/29.jpg" data-caption="Группа вырабатывает позицию">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/29-sm.webp 900w, assets/photos/29.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/29-sm.jpg" srcset="assets/photos/29-sm.jpg 900w, assets/photos/29.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Группа сидит в кругу на полу и обсуждает задачу." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Группа вырабатывает позицию</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/31.jpg" data-caption="Обсуждение">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/31-sm.webp 900w, assets/photos/31.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/31-sm.jpg" srcset="assets/photos/31-sm.jpg 900w, assets/photos/31.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участница объясняет свою мысль, жестикулируя." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Обсуждение</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/36.jpg" data-caption="Доклад группы «Рилсогенное СДВГ»">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/36-sm.webp 900w, assets/photos/36.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/36-sm.jpg" srcset="assets/photos/36-sm.jpg 900w, assets/photos/36.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Докладчик с чашкой в руке рядом с плакатом «Рилсогенное СДВГ»." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Доклад группы «Рилсогенное СДВГ»</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/51.jpg" data-caption="Реакции из зала">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/51-sm.webp 900w, assets/photos/51.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/51-sm.jpg" srcset="assets/photos/51-sm.jpg 900w, assets/photos/51.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Две участницы в зале: одна смеётся, другая закрыла лицо руками." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Реакции из зала</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/55.jpg" data-caption="Доклад группы «Зловредное поле»">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/55-sm.webp 900w, assets/photos/55.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/55-sm.jpg" srcset="assets/photos/55-sm.jpg 900w, assets/photos/55.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Докладчица показывает на плакат со схемой внимания." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Доклад группы «Зловредное поле»</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/67.jpg" data-caption="Доклад группы «Дискоммуникация»">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/67-sm.webp 900w, assets/photos/67.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/67-sm.jpg" srcset="assets/photos/67-sm.jpg 900w, assets/photos/67.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Докладчица у плаката «Коммуникация»." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Доклад группы «Дискоммуникация»</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/70.jpg" data-caption="Из зала">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/70-sm.webp 900w, assets/photos/70.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/70-sm.jpg" srcset="assets/photos/70-sm.jpg 900w, assets/photos/70.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Участник задумчиво чешет затылок." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Из зала</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/72.jpg" data-caption="Конференция">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/72-sm.webp 900w, assets/photos/72.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/72-sm.jpg" srcset="assets/photos/72-sm.jpg 900w, assets/photos/72.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Зал во время конференции: слушатели сидят на полу, у печки докладчики, на полу свёрнутые плакаты." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Конференция</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <button class="photo-btn" type="button" data-full="assets/photos/73.jpg" data-caption="Руки вверх">
+              <picture>
+                <source type="image/webp" srcset="assets/photos/73-sm.webp 900w, assets/photos/73.webp 1800w" sizes="(min-width: 780px) 360px, 50vw">
+                <img src="assets/photos/73-sm.jpg" srcset="assets/photos/73-sm.jpg 900w, assets/photos/73.jpg 1800w" sizes="(min-width: 780px) 360px, 50vw" width="900" height="598" alt="Слушатели поднимают руки." loading="lazy" decoding="async">
+              </picture>
+            </button>
+            <figcaption>Руки вверх</figcaption>
+          </figure>
+        </li>
+      </ul>
+      <p class="note gallery-credit">Фото из <a href="https://vk.ru/album-184040888_312132245" target="_blank" rel="noopener">альбома Школы ЭШЭР во ВКонтакте</a>.</p>
     </div>
   </section>
 
@@ -936,19 +1122,27 @@ a:hover { text-decoration-thickness: 2px; }
           <p>Это симптом болезни или способ сонастроиться?</p>
         </li>
       </ul>
+      <figure class="announce">
+        <blockquote><p>«Нам кажется, что сейчас очень много что/кто охотится за нашим вниманием. Как защититься? Как самим стать охотниками? Что можно предложить вместо этой охоты?»</p></blockquote>
+        <figcaption class="label">Из анонса <a href="https://metaversum.ru/esher_vnimanie" target="_blank" rel="noopener">осенней школы ЭШЭР «Внимание»</a></figcaption>
+      </figure>
     </div>
   </section>
 </main>
 
 <footer class="site-foot">
   <div class="wrap label">
-    <p class="about">Школа ЭШЭР — творческая группа из Петербурга. Уже 20 лет решает парадоксальные задачи открытого типа, у которых нет заранее известного ответа. Школа связана с сообществом <a href="https://metaversum.ru/" target="_blank" rel="noopener">Метаверситет</a>.</p>
+    <p class="about">Школа ЭШЭР — творческая группа. С 2007 года она провела 68 выездных школ развития для подростков и взрослых. Для каждой школы выбирают центральное понятие: днём решают про него парадоксальные задачи открытого типа, у которых нет заранее известного ответа, а вечером «проживают» тему через игру и театральные техники. Школа связана с сообществом <a href="https://metaversum.ru/" target="_blank" rel="noopener">Метаверситет</a>.</p>
+    <p class="about">Темы прошлых школ: вера, культура, воплощение, миф и символ, изнанка, подлинность, границы, интерес, дух, смех, смелость, риск, любовь, свобода и другие.</p>
+    <p class="about">Следующая школа ЭШЭР «Внимание» пройдёт 16–22 ноября 2026 года в Дахабе. <a href="https://metaversum.ru/esher_vnimanie" target="_blank" rel="noopener">Анонс и регистрация</a>.</p>
     <p><strong>Школа ЭШЭР</strong> · встреча про внимание · 3 октября 2026, 17:00–21:00 · Дом на Среднем</p>
     <p>Аудиозапись не велась. Текст восстановлен по живой расшифровке и фотографиям плакатов, поэтому формулировки близки к сказанному, но не дословны.</p>
-    <p>Сайт школы: <a href="https://metaversum.ru/esher" target="_blank" rel="noopener">metaversum.ru/esher</a></p>
+    <p>Сайт школы: <a href="https://metaversum.ru/esher" target="_blank" rel="noopener">metaversum.ru/esher</a> · Сообщество: <a href="https://t.me/metaversity" target="_blank" rel="noopener">Telegram</a>, <a href="https://vk.com/ishipo" target="_blank" rel="noopener">ВКонтакте</a></p>
     <p><a href="#title">Наверх</a></p>
   </div>
 </footer>
+
+<a class="to-top" href="#title" aria-label="Наверх"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.5V2.5M3 7.5 8 2.5l5 5"/></svg><span>Наверх</span></a>
 
 <dialog class="lightbox" id="lightbox" aria-label="Плакат крупно">
   <button class="lb-close" type="button">Закрыть</button>
@@ -985,6 +1179,26 @@ a:hover { text-decoration-thickness: 2px; }
     big.removeAttribute('src');
     if (opener) opener.focus();
   });
+
+  // Back to top: shown once the hero has scrolled away
+  var toTop = document.querySelector('.to-top');
+  var hero = document.querySelector('.hero');
+  if (toTop) {
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        toTop.classList.toggle('is-visible', !entries[0].isIntersecting);
+      }).observe(hero);
+    } else {
+      toTop.classList.add('is-visible');
+    }
+    toTop.addEventListener('click', function (e) {
+      e.preventDefault();
+      var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' });
+      var t = document.getElementById('title');
+      if (t) { t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); }
+    });
+  }
 
   // Stream of attention (version 2): a wide stream narrows; three eddies hold part of it
   var svg = document.getElementById('stream');
