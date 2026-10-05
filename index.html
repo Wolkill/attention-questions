@@ -130,6 +130,10 @@ a:hover { text-decoration-thickness: 2px; }
   animation: draw 1.1s .35s cubic-bezier(.6, .1, .3, 1) both;
 }
 @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.epigraph { display: grid; gap: 6px; max-width: 30em; margin-top: 26px; }
+.epigraph blockquote { font: italic 400 clamp(1.05rem, .98rem + .3vw, 1.2rem)/1.45 var(--font-text); }
+.announce { display: grid; gap: 8px; max-width: 42em; margin-top: clamp(30px, 4vw, 44px); padding-left: 18px; border-left: 3px solid var(--ink); }
+.announce blockquote { font: italic 400 1.1rem/1.5 var(--font-text); }
 .lead {
   margin-top: 30px;
   max-width: 34em;
@@ -459,7 +463,11 @@ a:hover { text-decoration-thickness: 2px; }
       <div>
         <p class="label">Отчёт о встрече · <span class="nowrap">3 октября 2026</span> · <span class="nowrap">17:00–21:00</span> · <span class="nowrap">Дом на Среднем</span></p>
         <h1 id="title">Задача на <span class="circled">внимание<svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M24 70 C10 40 70 10 160 9 C250 8 296 28 292 52 C288 80 210 95 140 93 C70 91 14 80 16 56 C18 38 50 24 98 18"/></svg></span></h1>
-        <p class="lead">В Школе ЭШЭР уже 20 лет решают парадоксальные задачи. На встрече про внимание задача была шуточная: пандемия СДВГ. Три группы выясняли, через что она передаётся. Задача парадоксальная, и решения получились такими же.</p>
+        <figure class="epigraph">
+          <blockquote><p>«Тема сама по себе парадоксальна: Как обратить внимание на внимание?»</p></blockquote>
+          <figcaption class="label">Из анонса <a href="https://metaversum.ru/esher_vnimanie" target="_blank" rel="noopener">осенней школы ЭШЭР «Внимание»</a></figcaption>
+        </figure>
+        <p class="lead">В Школе ЭШЭР с 2007 года решают парадоксальные задачи. Эта встреча была разминкой перед осенней школой «Внимание», а задача на ней была шуточная: пандемия СДВГ. Три группы выясняли, через что она передаётся. Задача парадоксальная, и решения получились такими же.</p>
         <ul class="toc" aria-label="Разделы">
           <li><a href="#task">Условие</a></li>
           <li><a href="#photos">Фото</a></li>
@@ -529,6 +537,7 @@ a:hover { text-decoration-thickness: 2px; }
       <div class="section-head">
         <p class="label">17:00–21:00</p>
         <h2 id="flow-title">Как шла встреча</h2>
+        <p>Так устроен метод ЭШЭР: решающие группы работают над задачей, а потом встречаются на конференции.</p>
       </div>
       <ol class="steps">
         <li class="step">
@@ -1113,16 +1122,22 @@ a:hover { text-decoration-thickness: 2px; }
           <p>Это симптом болезни или способ сонастроиться?</p>
         </li>
       </ul>
+      <figure class="announce">
+        <blockquote><p>«Нам кажется, что сейчас очень много что/кто охотится за нашим вниманием. Как защититься? Как самим стать охотниками? Что можно предложить вместо этой охоты?»</p></blockquote>
+        <figcaption class="label">Из анонса <a href="https://metaversum.ru/esher_vnimanie" target="_blank" rel="noopener">осенней школы ЭШЭР «Внимание»</a></figcaption>
+      </figure>
     </div>
   </section>
 </main>
 
 <footer class="site-foot">
   <div class="wrap label">
-    <p class="about">Школа ЭШЭР — творческая группа из Петербурга. Уже 20 лет решает парадоксальные задачи открытого типа, у которых нет заранее известного ответа. Школа связана с сообществом <a href="https://metaversum.ru/" target="_blank" rel="noopener">Метаверситет</a>.</p>
+    <p class="about">Школа ЭШЭР — творческая группа. С 2007 года она провела 68 выездных школ развития для подростков и взрослых. Для каждой школы выбирают центральное понятие: днём решают про него парадоксальные задачи открытого типа, у которых нет заранее известного ответа, а вечером «проживают» тему через игру и театральные техники. Школа связана с сообществом <a href="https://metaversum.ru/" target="_blank" rel="noopener">Метаверситет</a>.</p>
+    <p class="about">Темы прошлых школ: вера, культура, воплощение, миф и символ, изнанка, подлинность, границы, интерес, дух, смех, смелость, риск, любовь, свобода и другие.</p>
+    <p class="about">Следующая школа ЭШЭР «Внимание» пройдёт 16–22 ноября 2026 года в Дахабе. <a href="https://metaversum.ru/esher_vnimanie" target="_blank" rel="noopener">Анонс и регистрация</a>.</p>
     <p><strong>Школа ЭШЭР</strong> · встреча про внимание · 3 октября 2026, 17:00–21:00 · Дом на Среднем</p>
     <p>Аудиозапись не велась. Текст восстановлен по живой расшифровке и фотографиям плакатов, поэтому формулировки близки к сказанному, но не дословны.</p>
-    <p>Сайт школы: <a href="https://metaversum.ru/esher" target="_blank" rel="noopener">metaversum.ru/esher</a></p>
+    <p>Сайт школы: <a href="https://metaversum.ru/esher" target="_blank" rel="noopener">metaversum.ru/esher</a> · Сообщество: <a href="https://t.me/metaversity" target="_blank" rel="noopener">Telegram</a>, <a href="https://vk.com/ishipo" target="_blank" rel="noopener">ВКонтакте</a></p>
     <p><a href="#title">Наверх</a></p>
   </div>
 </footer>
